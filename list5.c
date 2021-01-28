@@ -67,17 +67,15 @@ void output(LIST l)
 {
     for (NODE *k = l.pHead; k!= NULL; k = k->pnext)
     {
-        printf(k->data);
-        printf("    ");
+        printf("%d  ",k->data);
     }  
 }
 
-void swap(int a, int b)
+void swap(int *a, int *b)
 {
-    int c;
-    c = a;
-    a = b;
-    b = c; 
+    int temp = *a;
+    *a = *b;
+    *b = temp; 
 }
 
 
@@ -90,7 +88,7 @@ void pairWiseSwap(NODE* pHead)
     while (temp != NULL && temp->pnext != NULL) { 
         /* Swap data of node with  
            its next node's data */
-        swap(temp->data, temp->pnext->data); 
+        swap(&temp->data, &temp->pnext->data); 
   
         /* Move temp by 2 for the next pair */
         temp = temp->pnext->pnext; 
@@ -99,8 +97,6 @@ void pairWiseSwap(NODE* pHead)
 
 /* Function to add a node at the  
    beginning of Linked List */
-
-
 int main()
 {
     LIST l;
@@ -120,22 +116,12 @@ int main()
 
     output(l);
     
-    NODE* temp = pHead;  
-    /* Traverse further only if  
-    there are at-least two nodes left */
-    while (temp != NULL && temp->pnext != NULL) { 
-        /* Swap data of node with  
-           its next node's data */
-        swap(temp->data, 
-             temp->pnext->data); 
-  
-        /* Move temp by 2 for the next pair */
-        temp = temp->pnext->pnext; 
-    } 
-
+    printf("\n");
+    
+    
+    pairWiseSwap(l.pHead);
     output(l);
     
 }    
-
 
 
