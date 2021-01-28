@@ -2,12 +2,11 @@
 #include<stdlib.h>
 #include<string.h>
 
-FILE *f;
-
-struct LinkedList{
+struct node
+{
     int data;
     struct node *pnext; // pointer next
- };
+};
 
 typedef struct node NODE; // struct note = NODE
 
@@ -15,11 +14,11 @@ struct list
 {
     NODE *pHead;
     NODE *pTail;
-}
+};
 
-typedef struct list LIST;
+typedef struct list LIST; // struct list = LIST
 
-node Create(LIST &l)
+void Create(LIST &l)
 {
     l.pHead = NULL;
     l.pTail = NULL;
@@ -30,11 +29,11 @@ NODE *createNode(int x)
     NODE *p = new NODE;
     if ( p == NULL )
     {
-        printf('\n Have error');
+        printf("\n Have error");
         return NULL;
     }
     p->data = x;
-    p->pNext = NULL; // first don't have connection
+    p->pnext = NULL; // first don't have connection
     return p;
 }
 
@@ -46,47 +45,55 @@ void AddHead(LIST &l, NODE *p)
     }
     else
     {
-        p->pNext = l.pHead;
+        p->pnext = l.pHead;
         l.pHead = p;
     }
 }
 
 void AddTail(LIST &l, NODE *p)
 {
-    if (*l.pHead == NULL)
+    if (l.pHead == NULL)
     {
         l.pHead = l.pTail = p;
     }
     else
     {
-        l.pTail->pNext = p;
+        l.pTail->pnext = p;
         l.pTail = p;
     }
 }
 
 void output(LIST l)
 {
-    for (NODE *k = l.pHead; k!= NULL; k = k->pNext)
+    for (NODE *k = l.pHead; k!= NULL; k = k->pnext)
     {
         printf(k->data);
         printf("    ");
     }  
 }
 
-void pairWiseSwap(Node* head) 
+void swap(int a, int b)
+{
+    int c;
+    c = a;
+    a = b;
+    b = c; 
+}
+
+
+void pairWiseSwap(NODE* pHead) 
 { 
     NODE* temp = pHead; 
   
     /* Traverse further only if  
     there are at-least two nodes left */
-    while (temp != NULL && temp->next != NULL) { 
+    while (temp != NULL && temp->pnext != NULL) { 
         /* Swap data of node with  
            its next node's data */
-        swap(temp->data, 
-             temp->next->data); 
+        swap(temp->data, temp->pnext->data); 
   
         /* Move temp by 2 for the next pair */
-        temp = temp->next->next; 
+        temp = temp->pnext->pnext; 
     } 
 }
 
@@ -107,17 +114,28 @@ int main()
         int x;
         printf("\ninput integer");
         scanf("%d", &x);
-        NODE *p = creatNode(x);
-        AddTail(l,p)
+        NODE *p = createNode(x);
+        AddTail(l,p);
     }
-    
+
     output(l);
     
-    voidWiseSwap(l);
+    NODE* temp = pHead;  
+    /* Traverse further only if  
+    there are at-least two nodes left */
+    while (temp != NULL && temp->pnext != NULL) { 
+        /* Swap data of node with  
+           its next node's data */
+        swap(temp->data, 
+             temp->pnext->data); 
+  
+        /* Move temp by 2 for the next pair */
+        temp = temp->pnext->pnext; 
+    } 
+
     output(l);
     
 }    
-
 
 
 
